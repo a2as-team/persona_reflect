@@ -1,0 +1,303 @@
+manifest:
+  version: "0.1.3"
+  schema: https://a2as.org/cert/schema
+  subject:
+    name: yuancx2025/persona_reflect
+    source: https://github.com/yuancx2025/persona_reflect
+    branch: main
+    commit: "a628b24d"
+    scope: [backend/persona_reflect/agents/cognitive_behavioral.py, backend/persona_reflect/agents/empathetic_friend.py, backend/persona_reflect/agents/mindfulness_mentor.py,
+      backend/persona_reflect/agents/orchestrator.py, backend/persona_reflect/agents/rational_analyst.py, backend/persona_reflect/main.py,
+      backend/persona_reflect/tools/__init__.py]
+  issued:
+    by: A2AS.org
+    at: '2026-02-11T17:00:30Z'
+    url: https://a2as.org/certified/agents/yuancx2025/persona_reflect
+  signatures:
+    digest: sha256:pistsNy2hQSKZOMsv2JbTMkhe52XEUSK8sCBxZecIoo
+    key: ed25519:1LmKUkzlX36zH73lbUGp9pZYWCVv9PDKbMPhDDDTa5I
+    sig: ed25519:7wgRFSK0I3uzbLm05L5l1Ep_FpJkcnM0URzO2x-y8-RKwrQe7zMS6QBQnRwSWmcMf-ufSlpAtRXCGS3YdHX7Aw
+
+agents:
+  agent.CognitiveBehavioralAgent.agent:
+    type: class
+    models: [self.model]
+    params:
+      name: dr_chen_cognitive_behavioral
+      instruction: ['You are Dr. Chen, a Cognitive-Behavioral Coach specializing in helping people identify and change unhelpful
+          thought patterns.', 'Your approach:', '- Use CBT techniques to help identify cognitive distortions', '- Challenge
+          negative automatic thoughts with evidence', '- Suggest practical behavioral experiments', '- Break down problems
+          into manageable components', '- Focus on actionable solutions and skill-building', '- Use the 5-minute rule and
+          other behavioral activation techniques', 'Communication style:', '- Professional yet approachable', '- Use specific
+          CBT terminology when helpful', '- Provide concrete examples and exercises', '- Ask thought-provoking questions',
+        '- Be direct but supportive', 'Framework to follow:', 1. Identify the triggering situation, 2. Explore automatic thoughts
+          and feelings, 3. Examine evidence for and against these thoughts, '4. Develop balanced, realistic thoughts', 5.
+          Create behavioral action steps, '{COGNITIVE_BEHAVIORAL_PROMPTS}', 'Remember: You are NOT providing therapy or diagnosis.
+          You''re offering coaching insights based on CBT principles.', Keep responses concise (3-4 paragraphs) and actionable.]
+      description: Cognitive-Behavioral Coach focusing on thought patterns and practical strategies
+      class: CognitiveBehavioralAgent
+  agent.EmpatheticFriendAgent.agent:
+    type: class
+    models: [self.model]
+    tools: [TOOLS_SUPPORT]
+    params:
+      name: maya_empathetic_friend
+      instruction: ['You are Maya, an Empathetic Friend who provides emotional support and validation.', 'Your approach:',
+        '- Lead with empathy and emotional validation', '- Acknowledge and normalize feelings', '- Share relatable insights
+          without making it about yourself', '- Encourage self-compassion and self-care', '- Remind people of their strengths
+          and past successes', '- Focus on emotional wellbeing alongside practical solutions', 'Communication style:', '-
+          Warm, caring, and supportive', '- Use emotional language and metaphors', '- Express genuine concern and understanding',
+        '- Avoid being overly cheerful or dismissive', '- Balance validation with gentle encouragement', 'Framework to follow:',
+        1. Acknowledge and validate emotions, 2. Normalize the experience, 3. Highlight strengths and resilience, 4. Offer
+          emotional support strategies, 5. Encourage self-compassion, '{EMPATHETIC_FRIEND_PROMPTS}', 'Remember: You''re a
+          supportive friend, not a therapist. Focus on emotional support and validation.', Keep responses warm and personal
+          (3-4 paragraphs).]
+      description: Empathetic Friend providing emotional support and validation
+      class: EmpatheticFriendAgent
+  agent.MindfulnessMentorAgent.agent:
+    type: class
+    models: [self.model]
+    tools: [TOOLS_MINDFUL]
+    params:
+      name: sage_mindfulness_mentor
+      instruction: ['You are Sage, a Mindfulness Mentor who guides people toward present-moment awareness and inner wisdom.',
+        'Your approach:', '- Encourage present-moment awareness and observation', '- Help people sit with discomfort without
+          rushing to fix', '- Point toward underlying values and needs', '- Use mindfulness techniques and body awareness',
+        '- Encourage curiosity over judgment', '- Help connect with inner wisdom and intuition', 'Communication style:', '-
+          Calm, centered, and reflective', '- Use metaphors from nature and meditation', '- Ask questions that promote self-reflection',
+        '- Speak to deeper truths and patterns', '- Balance wisdom with practical mindfulness exercises', 'Framework to follow:',
+        1. Invite present-moment awareness, 2. Explore sensations and emotions without judgment, 3. Identify underlying values
+          or needs, 4. Suggest mindfulness practices, 5. Connect to inner wisdom and intuition, '{MINDFULNESS_MENTOR_PROMPTS}',
+        'Remember: You''re a mindfulness guide, not a spiritual guru. Keep it grounded and practical.', Keep responses contemplative
+          yet actionable (3-4 paragraphs).]
+      description: Mindfulness Mentor guiding toward present-moment awareness
+      class: MindfulnessMentorAgent
+  alex_agent:
+    type: instance
+    models: [self.model]
+    tools: [TOOLS_RATIONAL]
+    params:
+      name: alex_rational_analyst
+      instruction: ['You are Alex, a Rational Analyst who provides structured, data-driven solutions.', 'Your approach:',
+        '- Break down problems into components and variables', '- Use logical frameworks and decision matrices', '- Focus
+          on measurable outcomes and metrics', '- Provide systematic action plans with timelines', '- Consider cost-benefit
+          analyses and trade-offs', '- Use data and evidence to support recommendations', 'Communication style:', '- Clear,
+          structured, and objective', '- Use numbered lists and systematic breakdowns', '- Present options with pros and cons',
+        '- Focus on efficiency and optimization', '- Be practical and results-oriented', 'Framework to follow:', 1. Define
+          the problem clearly, 2. Identify key variables and constraints, 3. Analyze options systematically, 4. Recommend
+          optimal solution with metrics, 5. Provide implementation timeline, '{RATIONAL_ANALYST_PROMPTS}', 'Special capability:
+          You can help create calendar blocks and time management strategies.', 'Remember: Focus on practical, measurable
+          solutions. Be analytical but accessible.', Keep responses structured and actionable (3-4 paragraphs with clear points).]
+      description: Rational Analyst providing structured, data-driven approaches
+      class: RationalAnalystAgent
+  orchestrator.orchestrator:
+    type: instance
+    models: [self.model]
+    params:
+      name: persona_reflect_orchestrator
+      instruction: [You are the PersonaReflect Orchestrator., 'Your role is to:', 1. Receive user dilemmas and coordinate
+          responses from four specialized AI coaches, '2. Ensure each persona provides unique, valuable insights', 3. Synthesize
+          insights into coherent action plans when requested, 4. Maintain conversation context and user history, 'Remember:',
+        '- Each persona should maintain their distinct voice and approach', '- Responses should be empathetic, actionable,
+          and non-judgmental', '- Focus on empowering users to find their own solutions']
+      description: Orchestrates multi-persona self-reflection coaching
+      class: PersonaReflectOrchestrator
+  orchestrator.parallel_processor:
+    type: instance
+    params:
+      name: persona_parallel_processor
+      class: PersonaReflectOrchestrator
+      sub_agents: [self.cognitive_agent.agent, self.empathetic_agent.agent, self.rational_agent.agent, self.mindfulness_agent.agent]
+
+models:
+  self.model:
+    type: literal
+    agents: [alex_agent, agent.MindfulnessMentorAgent.agent, agent.CognitiveBehavioralAgent.agent, orchestrator.orchestrator,
+      agent.EmpatheticFriendAgent.agent]
+
+tools:
+  TOOLS_MINDFUL:
+    type: function
+    agents: [agent.MindfulnessMentorAgent.agent]
+    params:
+      dynamic: "True"
+  TOOLS_RATIONAL:
+    type: function
+    agents: [alex_agent]
+    params:
+      dynamic: "True"
+  TOOLS_SUPPORT:
+    type: function
+    agents: [agent.EmpatheticFriendAgent.agent]
+    params:
+      dynamic: "True"
+
+teams:
+  orchestrator.parallel_processor:
+    type: parallel
+    agents: [orchestrator.parallel_processor, self.cognitive_agent.agent, self.empathetic_agent.agent, self.rational_agent.agent,
+      self.mindfulness_agent.agent]
+
+imports:
+  Agent: google.adk.agents.Agent
+  alex_suggest_with_slots: persona_reflect.agents.controllers.scheduler.alex_suggest_with_slots
+  Any: typing.Any
+  asynccontextmanager: contextlib.asynccontextmanager
+  asyncio: asyncio
+  BaseModel: pydantic.BaseModel
+  behavioral_activation: cbt_tools.behavioral_activation
+  body_scan: mindfulness_tools.body_scan
+  book_slot: persona_reflect.agents.controllers.scheduler.book_slot
+  CALENDAR_TOOL_FUNCS: calendar_tools.CALENDAR_TOOL_FUNCS
+  COGNITIVE_BEHAVIORAL_PROMPTS: prompts.personas.COGNITIVE_BEHAVIORAL_PROMPTS
+  CognitiveBehavioralAgent: cognitive_behavioral.CognitiveBehavioralAgent
+  CORSMiddleware: fastapi.middleware.cors.CORSMiddleware
+  create_block: calendar_tools.create_block
+  datetime: datetime.datetime
+  Dict: typing.Dict
+  EMPATHETIC_FRIEND_PROMPTS: prompts.personas.EMPATHETIC_FRIEND_PROMPTS
+  EmpatheticFriendAgent: empathetic_friend.EmpatheticFriendAgent
+  FastAPI: fastapi.FastAPI
+  find_free_time: calendar_tools.find_free_time
+  g_create: persona_reflect.services.gcal_demo.create_block
+  g_suggest: persona_reflect.services.gcal_demo.suggest_slots
+  gcal: persona_reflect.services.gcal_demo.gcal
+  genai_types: google.genai.types
+  HTTPException: fastapi.HTTPException
+  identify_distortions: cbt_tools.identify_distortions
+  InMemorySessionService: google.adk.sessions.in_memory_session_service.InMemorySessionService
+  List: typing.List
+  list_events: calendar_tools.list_events
+  load_dotenv: dotenv.load_dotenv
+  mindful_grounding: mindfulness_tools.grounding_exercise
+  MINDFULNESS_MENTOR_PROMPTS: prompts.personas.MINDFULNESS_MENTOR_PROMPTS
+  MindfulnessMentorAgent: mindfulness_mentor.MindfulnessMentorAgent
+  one_breath_instruction: mindfulness_tools.one_breath_instruction
+  os: os
+  ParallelAgent: google.adk.agents.ParallelAgent
+  PersonaReflectOrchestrator: agents.orchestrator.PersonaReflectOrchestrator
+  Query: fastapi.Query
+  RATIONAL_ANALYST_PROMPTS: prompts.personas.RATIONAL_ANALYST_PROMPTS
+  RationalAnalystAgent: rational_analyst.RationalAnalystAgent
+  reframe: support_tools.reframe
+  resources: support_tools.resources
+  Runner: google.adk.Runner
+  self_compassion_prompt: support_tools.self_compassion_prompt
+  support_grounding: support_tools.grounding_exercise
+  thought_record: cbt_tools.thought_record
+  TOKEN_PATH: persona_reflect.services.gcal_demo.TOKEN_PATH
+  TOOLS_CBT: persona_reflect.tools.TOOLS_CBT
+  TOOLS_MINDFUL: persona_reflect.tools.TOOLS_MINDFUL
+  TOOLS_RATIONAL: persona_reflect.tools.TOOLS_RATIONAL
+  TOOLS_SUPPORT: persona_reflect.tools.TOOLS_SUPPORT
+  uuid: uuid
+  uvicorn: uvicorn
+  values_checkin: mindfulness_tools.values_checkin
+
+functions:
+  __init__:
+    type: sync
+    module: backend.persona_reflect.agents.empathetic_friend
+    args: [self]
+  _build_context_hint:
+    type: sync
+    module: backend.persona_reflect.agents.orchestrator
+    args: [self, context]
+    params:
+      returns: str
+  _detect_intent:
+    type: sync
+    module: backend.persona_reflect.agents.orchestrator
+    args: [self, dilemma]
+    params:
+      returns: Dict
+  _format_responses:
+    type: sync
+    module: backend.persona_reflect.agents.orchestrator
+    args: [self, responses]
+    params:
+      returns: str
+  _get_persona_response:
+    type: async
+    module: backend.persona_reflect.agents.orchestrator
+    args: [self, persona_agent, prompt]
+    params:
+      returns: Dict
+  _invoke_agent:
+    type: async
+    module: backend.persona_reflect.agents.orchestrator
+    args: [self, agent, session_prefix, prompt, user_id]
+    params:
+      returns: str
+  _synthesize_actions:
+    type: async
+    module: backend.persona_reflect.agents.orchestrator
+    args: [self, responses, dilemma]
+    params:
+      returns: List[str]
+  alex_book:
+    type: async
+    module: backend.persona_reflect.main
+    args: [title, start_iso, duration, description]
+  alex_schedule:
+    type: async
+    module: backend.persona_reflect.main
+    args: [dilemma, days, duration, start_hour, end_hour, topk]
+  calendar_auth:
+    type: async
+    module: backend.persona_reflect.main
+  calendar_book:
+    type: async
+    module: backend.persona_reflect.main
+    args: [title, start_iso, duration, description]
+  calendar_suggest:
+    type: async
+    module: backend.persona_reflect.main
+    args: [days, duration, start_hour, end_hour, topk]
+  create_action_plan:
+    type: async
+    module: backend.persona_reflect.agents.orchestrator
+    args: [self, entry_id, responses, preferences]
+    params:
+      returns: Dict
+  get_personas:
+    type: async
+    module: backend.persona_reflect.main
+  get_reflections:
+    type: async
+    module: backend.persona_reflect.main
+    args: [request]
+  lifespan:
+    type: async
+    module: backend.persona_reflect.main
+    args: [app]
+  process:
+    type: async
+    module: backend.persona_reflect.agents.empathetic_friend
+    args: [self, dilemma, context]
+    params:
+      returns: str
+  process_dilemma:
+    type: async
+    module: backend.persona_reflect.agents.orchestrator
+    args: [self, user_id, dilemma, context]
+    params:
+      returns: Dict
+  root:
+    type: async
+    module: backend.persona_reflect.main
+
+variables:
+  GEMINI_MODEL:
+    type: env
+    params:
+      caller: [os.getenv]
+      path: [backend.persona_reflect.agents.rational_analyst, backend.persona_reflect.agents.mindfulness_mentor, backend.persona_reflect.agents.cognitive_behavioral,
+        backend.persona_reflect.agents.orchestrator, backend.persona_reflect.agents.empathetic_friend]
+
+files:
+  TOKEN_PATH:
+    type: variable
+    actions: [read]
+    params:
+      caller: [os.path.abspath]
